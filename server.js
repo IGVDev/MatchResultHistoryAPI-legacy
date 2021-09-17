@@ -5,6 +5,7 @@ const cors = require("cors");
 const knex = require("knex");
 const _ = require("underscore");
 const app = express();
+const client = require("pg");
 
 const register = require("./Controllers/register");
 const signIn = require("./Controllers/signin");
@@ -12,15 +13,25 @@ const matchLoad = require("./Controllers/matchload");
 const profile = require("./Controllers/profile");
 const standings = require("./Controllers/standings");
 
-const db = knex({
-  client: "pg",
-  connection: {
-    host: "localhost",
-    user: "postgres",
-    password: "databasepw",
-    database: "fifa",
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
   },
 });
+
+client.connect();
+
+client.query(
+  "SELECT table_schema,table_name FROM information_schema.tables;",
+  (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      console.log(JSON.stringify(row));
+    }
+    client.end();
+  }
+);
 
 app.use(bodyParser.json());
 app.use(cors());
