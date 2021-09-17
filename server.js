@@ -37,7 +37,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  return res.json("IT'S ALIVE"), res.send("this is working");
+  return res.json("IT'S ALIVE");
 });
 app.get("/standings", (req, res) => {
   standings.handleStandingsGet(req, res, db);
