@@ -44,7 +44,7 @@ app.post("/matchload", (req, res) => {
   matchLoad.handleMatchLoad(req, res, db);
 });
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log("It is alive!");
 });
 
