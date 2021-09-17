@@ -5,7 +5,7 @@ const cors = require("cors");
 const knex = require("knex");
 const _ = require("underscore");
 const app = express();
-const client = require("pg");
+const { Client } = require("pg");
 
 const register = require("./Controllers/register");
 const signIn = require("./Controllers/signin");
