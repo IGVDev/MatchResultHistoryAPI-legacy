@@ -54,7 +54,7 @@ app.post("/loadusers", (req, res) => {
       return arr;
     })
     .then((arr) => {
-      res.status(200), res.json(arr);
+      res.status(200).json(arr);
     })
     .catch((err) => res.json(err), res.status(400));
 });
