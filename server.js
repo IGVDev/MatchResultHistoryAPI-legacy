@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
   res.json("IT'S ALIVE");
 });
 
-app.get("/standings", (req, res) => {
+app.post("/standings", (req, res) => {
   standings.handleStandingsGet(req, res, db);
 });
 
