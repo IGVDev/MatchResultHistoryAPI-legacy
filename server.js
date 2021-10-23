@@ -20,8 +20,9 @@ const db = knex({
   },
 });
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 app.use(cors());
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json("IT'S ALIVE");
@@ -42,9 +43,13 @@ app.post("/matchload", (req, res) => {
   matchLoad.handleMatchLoad(req, res, db);
 });
 app.post("/admin", (req, res) => {
-  bcrypt.compareSync("1m4n0l4", req.body.password)
-    ? res.status(200)
-    : res.status(403);
+  if (bcrypt.compareSync("1m4n0l4", req.body.password)) {
+    res.status(200);
+    res.json("Go right ahead");
+  } else {
+    res.status(403);
+    res.json("F");
+  }
 });
 
 app.listen(process.env.PORT || 3001, () => {
