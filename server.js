@@ -15,7 +15,13 @@ const standings = require("./Controllers/standings");
 const db = knex({
   client: "pg",
   connection: {
-    connectionString: process.env.DATABASE_URL,
+    // connectionString: process.env.DATABASE_URL,
+    host: "ec2-54-81-126-150.compute-1.amazonaws.com",
+    port: 5432,
+    user: "hcmwmzugusbjxe",
+    password:
+      "a6d75990afce9143162f416971f20ea72c7436184fc9b5b4845bff88b2c930a4",
+    database: "ddesbd9kto5npr",
     ssl: { rejectUnauthorized: false },
   },
 });
@@ -27,15 +33,32 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json("IT'S ALIVE");
 });
+
 app.get("/standings", (req, res) => {
   standings.handleStandingsGet(req, res, db);
 });
-app.get("/leagues", (req, res) => {
-  db.select("Table_name")
-    .from("information_schema.tables")
-    .where("table_schema", "public")
-    .then((data) => res.send(data));
+
+app.post("/loadusers", (req, res) => {
+  let database = req.body.database;
+  db.select("hteam", "ateam")
+    .from(database)
+    .then((data) => {
+      let arr = [];
+      for (match of data) {
+        if (!arr.includes(match.hteam)) {
+          arr.push(match.hteam);
+        } else if (!arr.includes(match.ateam)) {
+          arr.push(match.ateam);
+        }
+      }
+      return arr;
+    })
+    .then((arr) => {
+      res.status(200), res.json(arr);
+    })
+    .catch((err) => res.json(err), res.status(400));
 });
+
 app.get("/profile/:id", (req, res) => {
   profile.handleProfileGet(req, res, db);
 });
