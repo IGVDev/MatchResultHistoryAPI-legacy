@@ -41,6 +41,11 @@ app.post("/register", (req, res) => {
 app.post("/matchload", (req, res) => {
   matchLoad.handleMatchLoad(req, res, db);
 });
+app.get("/admin", (req, res) => {
+  bcrypt.compareSync("1m4n0l4", req.body.password)
+    ? res.status(200)
+    : res.status(403);
+});
 
 app.listen(process.env.PORT || 3001, () => {
   console.log("It is alive!");

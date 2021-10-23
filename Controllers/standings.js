@@ -4,6 +4,7 @@ const _ = require("underscore");
 const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
 const handleStandingsGet = (req, res, db) => {
+  const { table } = req.body;
   db.select("hteam", "ateam")
     .from("matches")
     .then((data) => {
