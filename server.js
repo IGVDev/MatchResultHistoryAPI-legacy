@@ -30,6 +30,12 @@ app.get("/", (req, res) => {
 app.get("/standings", (req, res) => {
   standings.handleStandingsGet(req, res, db);
 });
+app.get("/leagues", (req, res) => {
+  db.select("Table_name")
+    .from("information_schema.tables")
+    .where("table_schema", "public")
+    .then((data) => res.send(data));
+});
 app.get("/profile/:id", (req, res) => {
   profile.handleProfileGet(req, res, db);
 });
