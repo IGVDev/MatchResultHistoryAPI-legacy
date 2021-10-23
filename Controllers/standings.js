@@ -38,7 +38,7 @@ const handleStandingsGet = (req, res, db) => {
     })
     // .then((data) => res.json(data))
     .then((users) => {
-      db("matches")
+      db(database)
         .then((matches) => {
           for (match of matches) {
             let { hteam, ateam, hscore, ascore } = match;
