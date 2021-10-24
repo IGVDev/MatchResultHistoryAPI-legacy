@@ -1,8 +1,9 @@
 const handleMatchLoad = (req, res, db) => {
-  const { hteam, ateam, team1, team2, hscore, ascore, winner } = req.body;
+  const { hteam, ateam, team1, team2, hscore, ascore, winner, database } =
+    req.body;
   if (!hteam || !ateam || !team1 || !team2 || !winner)
     return res.status(400).json("Missing data");
-  db("matches")
+  db(database)
     .insert({
       hteam: hteam.toLowerCase(),
       ateam: ateam.toLowerCase(),
