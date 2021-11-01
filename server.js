@@ -72,7 +72,7 @@ app.post("/matchload", (req, res) => {
   matchLoad.handleMatchLoad(req, res, db);
 });
 app.post("/admin", (req, res) => {
-  if (bcrypt.compareSync("1m4n0l4", req.body.password)) {
+  if (bcrypt.compareSync(process.env.ADMIN_PASSWORD, req.body.password)) {
     res.status(200);
     res.json("Go right ahead");
   } else {
