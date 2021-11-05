@@ -15,13 +15,7 @@ const standings = require("./Controllers/standings");
 const db = knex({
   client: "pg",
   connection: {
-    // connectionString: process.env.DATABASE_URL,
-    host: "ec2-54-81-126-150.compute-1.amazonaws.com",
-    port: 5432,
-    user: "hcmwmzugusbjxe",
-    password:
-      "a6d75990afce9143162f416971f20ea72c7436184fc9b5b4845bff88b2c930a4",
-    database: "ddesbd9kto5npr",
+    connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false },
   },
 });
