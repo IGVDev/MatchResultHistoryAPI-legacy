@@ -113,7 +113,7 @@ const handleStandingsGet = (req, res, db) => {
         })
         .then((users) => res.json(users));
     })
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(400).json("cannot get standings"));
 };
 
 module.exports = {
