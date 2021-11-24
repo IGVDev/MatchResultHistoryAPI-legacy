@@ -12,7 +12,8 @@ const handleStandingsGet = (req, res, db) => {
       for (match of data) {
         if (!arr.includes(match.hteam)) {
           arr.push(match.hteam);
-        } else if (!arr.includes(match.ateam)) {
+        }
+        if (!arr.includes(match.ateam)) {
           arr.push(match.ateam);
         }
       }
@@ -44,6 +45,7 @@ const handleStandingsGet = (req, res, db) => {
             let { hteam, ateam, hscore, ascore } = match;
             let home = _.find(users, { name: capitalize(hteam) });
             let away = _.find(users, { name: capitalize(ateam) });
+            if (away === undefined) console.log(match);
             if (hscore > ascore) {
               (home.points += 3),
                 home.gamesPlayed++,
@@ -111,7 +113,7 @@ const handleStandingsGet = (req, res, db) => {
         })
         .then((users) => res.json(users));
     })
-    .catch((err) => res.status(200).json("couldn't load standings"));
+    .catch((err) => res.status(400).json(err));
 };
 
 module.exports = {
