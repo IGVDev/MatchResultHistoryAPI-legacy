@@ -16,7 +16,7 @@ const handleMatchLoad = (req, res, db) => {
     })
     .returning("*")
     .then((match) => res.json(match[0]))
-    .catch((err) => res.status(200).json("Couldn't save match"));
+    .catch((err) => res.status(400).json("Couldn't save match"));
 };
 
 module.exports = {
